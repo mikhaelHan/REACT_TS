@@ -12,27 +12,29 @@ import Footer from '../components/Footer/Footer';
 
 const App: React.FC = () => {
   const [state, setState] = useState<string>('car');
-  const [imageState, setImageState] = useState<string[]>(['']);
+  const [imageState, setImageState] = useState<IResults[] | null>(null);
 
   const changeState = (currant: string): void => {
     setState(currant);
   };
 
   useEffect(() => {
-    const getUrls = async (word: string): Promise<string[]> => {
+    const getResults = async (word: string): Promise<IResults[] | null> => {
       const responce: IAPIrequest | null = await APIrequest(word);
 
-      if (!responce || !responce.results) return [''];
+      console.log(responce);
 
-      return responce.results.map((el: IResults) => (el.urls.regular ? el.urls.regular : ''));
+      if (!responce || !responce.results) return null;
+
+      return responce.results;
     };
 
-    const addUrls = async (word: string): Promise<void> => {
-      const urls = await getUrls(word);
-      setImageState(urls);
+    const addResults = async (word: string): Promise<void> => {
+      const array: IResults[] | null = await getResults(word);
+      setImageState(array);
     };
 
-    addUrls(state);
+    addResults(state);
   }, [state]);
 
   return (
