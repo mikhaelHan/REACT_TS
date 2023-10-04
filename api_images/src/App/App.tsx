@@ -22,8 +22,6 @@ const App: React.FC = () => {
     const getResults = async (word: string): Promise<IResults[] | null> => {
       const responce: IAPIrequest | null = await APIrequest(word);
 
-      console.log(responce);
-
       if (!responce || !responce.results) return null;
 
       return responce.results;
