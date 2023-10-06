@@ -1,11 +1,10 @@
 import React from 'react';
-
 import './App.scss';
 
 const App: React.FC = () => {
   return (
     <>
-      <div>Async_race</div>
+      <div>Async_race_API</div>
     </>
   );
 };
