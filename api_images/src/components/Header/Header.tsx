@@ -7,8 +7,11 @@ import logo from '../../assets/images/logo.svg';
 const Header: React.FC<{ changeState: (currant: string) => void }> = (props) => {
   const [inputState, setInputState] = useState('');
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.code === 'Enter') props.changeState(inputState);
+  const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && e.target instanceof HTMLInputElement) {
+      props.changeState(inputState);
+      e.target.value = '';
+    }
   };
 
   return (
@@ -25,7 +28,7 @@ const Header: React.FC<{ changeState: (currant: string) => void }> = (props) => 
               className="head-container__input"
               type="search"
               onChange={(e) => setInputState(e.target.value)}
-              onKeyDown={handleKeyDown}
+              onKeyDown={handleSearch}
             />
           </section>
         </div>
